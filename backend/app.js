@@ -2,6 +2,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { default: sequelize } = require("./utils/database");
+const { default: Message } = require("./models/Message");
+const { default: User } = require("./models/User");
 
 const app = express();
 const PORT = 3001;
@@ -46,6 +48,18 @@ app.post("/login", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/api/messages", async (req, res) => {
+  const { userId, text } = req.body;
+
+  try {
+    const newMessage = await Message.create({ userId, text });
+    res.status(201).json(newMessage);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
