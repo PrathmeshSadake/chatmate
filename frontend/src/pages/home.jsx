@@ -1,15 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Home = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== "") {
-      setMessages([...messages, { text: newMessage, sender: "user" }]);
+  const handleSendMessage = async () => {
+    const userId = 1;
+    try {
+      await axios.post("http://localhost:3001/api/messages", {
+        userId,
+        text: newMessage,
+      });
       setNewMessage("");
+    } catch (error) {
+      console.error(error);
     }
   };
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/messages");
+        setMessages(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
 
   return (
     <div className='flex flex-col h-screen'>

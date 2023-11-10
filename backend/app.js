@@ -63,6 +63,16 @@ app.post("/api/messages", async (req, res) => {
   }
 });
 
+app.get("/api/messages", async (req, res) => {
+  try {
+    const messages = await Message.findAll();
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 sequelize.sync().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
