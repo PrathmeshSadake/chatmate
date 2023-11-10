@@ -18,17 +18,19 @@ const Home = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/messages");
-        setMessages(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const fetchMessages = async () => {
+    try {
+      const response = await axios.get("http://localhost:3001/api/messages");
+      setMessages(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
     fetchMessages();
+    const intervalId = setInterval(fetchMessages, 1000);
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
