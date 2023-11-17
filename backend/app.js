@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const { default: sequelize } = require("./utils/database");
 const { default: Message } = require("./models/Message");
 const { default: User } = require("./models/User");
+const Group = require("./models/Group");
+const { default: UserGroup } = require("./models/UserGroup");
 
 const app = express();
 const PORT = 3001;
@@ -67,6 +69,69 @@ app.get("/api/messages", async (req, res) => {
   try {
     const messages = await Message.findAll();
     res.status(200).json(messages);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Create a new group
+app.post("/api/groups", async (req, res) => {
+  const { name } = req.body;
+  try {
+    const newGroup = await Group.create({ name });
+    res.status(201).json(newGroup);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Send a message to a group
+app.post("/api/groups/:groupId/messages", async (req, res) => {
+  const { userId, text } = req.body;
+  const groupId = req.params.groupId;
+  try {
+    const group = await Group.findByPk(groupId);
+    if (!group) {
+      res.status(404).json({ error: "Group not found" });
+      return;
+    }
+    await Message.create({ userId, groupId, text });
+    res.status(200).json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// Send a message to a group
+app.post("/api/groups/:groupId/messages", async (req, res) => {
+  const { userId, text } = req.body;
+  const groupId = req.params.groupId;
+  try {
+    const group = await Group.findByPk(groupId);
+    if (!group) {
+      res.status(404).json({ error: "Group not found" });
+      return;
+    }
+    await Message.create({ userId, groupId, text });
+    res.status(200).json({ message: "Message sent successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+app.get("/api/users/:userId/groups", async (req, res) => {
+  const userId = req.params.userId;
+  try {
+    const userGroups = await UserGroup.findAll({
+      where: { userId },
+      include: [{ model: Group }],
+    });
+    const groups = userGroups.map((userGroup) => userGroup.Group);
+    res.status(200).json(groups);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

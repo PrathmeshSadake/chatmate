@@ -1,3 +1,5 @@
+import sequelize from "../utils/database";
+
 const Message = sequelize.define("message", {
   userId: {
     type: DataTypes.INTEGER,
@@ -6,6 +8,10 @@ const Message = sequelize.define("message", {
   text: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  timestamp: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
   },
 });
 
