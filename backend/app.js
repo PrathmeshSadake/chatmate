@@ -1,11 +1,11 @@
 // server.js
-const express = require("express");
-const bcrypt = require("bcrypt");
-const { default: sequelize } = require("./utils/database");
-const { default: Message } = require("./models/Message");
-const { default: User } = require("./models/User");
-const Group = require("./models/Group");
-const { default: UserGroup } = require("./models/UserGroup");
+import express from "express";
+import bcrypt from "bcrypt";
+import sequelize from "./utils/database.js";
+import Message from "./models/Message.js";
+import User from "./models/User.js";
+import Group from "./models/Group.js";
+import UserGroup from "./models/UserGroup.js";
 
 const app = express();
 const PORT = 3001;
@@ -137,6 +137,16 @@ app.get("/api/users/:userId/groups", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
+User.hasMany(Message);
+Message.belongsTo(User);
+Group.hasMany(UserGroup);
+UserGroup.belongsTo(User);
+UserGroup.belongsTo(Group);
+User.belongsToMany(Group, { through: UserGroup });
+Group.belongsToMany(User, { through: UserGroup });
+Group.belongsTo(User, { as: "Admin", foreignKey: "adminId" });
+UserGroup.belongsTo(User, { as: "Admin", foreignKey: "userId" });
 
 sequelize.sync().then(() => {
   app.listen(PORT, () => {

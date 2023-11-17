@@ -1,18 +1,22 @@
-const { DataTypes } = require("sequelize");
-const { default: sequelize } = require("../utils/database");
+import { DataTypes } from "sequelize";
+import sequelize from "../utils/database.js";
+import User from "./User.js";
+import UserGroup from "./UserGroup.js";
 
-const Group = sequelize.define("group", {
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    unique: true,
+const Group = sequelize.define(
+  "group",
+  {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
   },
-});
+  {
+    timestamps: true, // Add this line to enable timestamps
+    createdAt: "createdAt", // Specify the createdAt field name
+    updatedAt: "updatedAt", // Specify the updatedAt field name
+  }
+);
 
-Group.belongsTo(User, { as: 'Admin', foreignKey: 'adminId' });
-Group.hasMany(UserGroup);
-UserGroup.belongsTo(User);
-UserGroup.belongsTo(Group);
-UserGroup.belongsTo(User, { as: 'Admin', foreignKey: 'userId' });
-
-module.exports = Group;
+export default Group;
