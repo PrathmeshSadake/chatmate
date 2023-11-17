@@ -9,7 +9,10 @@ const Group = sequelize.define("group", {
   },
 });
 
-Group.hasMany(Message);
-Message.belongsTo(Group);
+Group.belongsTo(User, { as: 'Admin', foreignKey: 'adminId' });
+Group.hasMany(UserGroup);
+UserGroup.belongsTo(User);
+UserGroup.belongsTo(Group);
+UserGroup.belongsTo(User, { as: 'Admin', foreignKey: 'userId' });
 
 module.exports = Group;
