@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const SignUp = () => {
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
-      <div className='max-w-md w-full space-y-8'>
+      <div className='max-w-md w-full space-y-8 rounded shadow-md p-8'>
         <div>
           <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
             Sign up for an account
@@ -76,6 +77,12 @@ const SignUp = () => {
             </button>
           </div>
         </form>
+        <p className='text-gray-800 text-sm my-1 text-center'>
+          Already have an Account?{" "}
+          <Link to='/login' className='text-indigo-700'>
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
