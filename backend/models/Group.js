@@ -11,6 +11,10 @@ const Group = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    adminId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     timestamps: true, // Add this line to enable timestamps

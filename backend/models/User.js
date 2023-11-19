@@ -8,7 +8,7 @@ import UserGroup from "./UserGroup.js";
 const User = sequelize.define(
   "user",
   {
-    name: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -17,7 +17,7 @@ const User = sequelize.define(
       allowNull: false,
       unique: true,
     },
-    phoneNumber: {
+    phone: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

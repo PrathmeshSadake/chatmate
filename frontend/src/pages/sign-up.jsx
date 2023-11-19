@@ -1,13 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
 const SignUp = () => {
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phoneNumber: "",
     password: "",
   });
+
+  if (user) return <Navigate to='/' />;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,10 +25,22 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3001/api/auth/signup",
+        formData
+      );
+
+      if (data.message === "User created successfully") {
+        toast.success("User created successfully");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Error during user registration:", error);
+    }
   };
 
   return (
