@@ -4,7 +4,6 @@ import { useCookies } from "react-cookie";
 
 const AuthContext = createContext();
 const decodeJwt = (token) => {
-  // Decode the JWT to extract user information
   try {
     return JSON.parse(atob(token.split(".")[1]));
   } catch (error) {

@@ -41,7 +41,6 @@ const CreateGroup = () => {
         <div className='max-w-md mx-auto bg-white p-8 rounded shadow'>
           <h2 className='text-2xl font-semibold mb-4'>Create a New Group</h2>
 
-          {/* Group Name Input */}
           <div className='mb-4'>
             <label
               htmlFor='groupName'
@@ -59,7 +58,6 @@ const CreateGroup = () => {
             />
           </div>
 
-          {/* Create Group Button */}
           <button
             className='bg-indigo-500 text-white py-2 px-4 rounded hover:bg-indigo-600'
             onClick={handleCreateGroup}

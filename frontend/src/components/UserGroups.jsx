@@ -11,7 +11,7 @@ const UserGroups = () => {
     const fetchGroups = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3001/api/users/${user.userId}/groups`
+          `http://localhost:3001/api/groups/${user.userId}`
         );
         console.log("User Groups", data);
         setGroups(data);
@@ -22,8 +22,6 @@ const UserGroups = () => {
 
     fetchGroups();
   }, [user]);
-
-  console.log(groups);
 
   return (
     <div className='container mx-auto mt-8'>

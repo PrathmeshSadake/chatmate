@@ -1,7 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../utils/database.js";
-import User from "./User.js";
-import UserGroup from "./UserGroup.js";
 
 const Group = sequelize.define(
   "group",
@@ -17,9 +15,9 @@ const Group = sequelize.define(
     },
   },
   {
-    timestamps: true, // Add this line to enable timestamps
-    createdAt: "createdAt", // Specify the createdAt field name
-    updatedAt: "updatedAt", // Specify the updatedAt field name
+    timestamps: true,
+    createdAt: "createdAt",
+    updatedAt: "updatedAt",
   }
 );
 

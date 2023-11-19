@@ -22,9 +22,9 @@ const Message = sequelize.define(
     },
   },
   {
-    timestamps: true, // Add this line to enable timestamps
-    createdAt: "createdAt", // Specify the createdAt field name
-    updatedAt: "updatedAt", // Specify the updatedAt field name
+    timestamps: true,
+    createdAt: "createdAt",
+    updatedAt: "updatedAt",
   }
 );
 

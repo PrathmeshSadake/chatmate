@@ -14,7 +14,7 @@ const ChatScreen = () => {
     const fetchGroup = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/api/groups/${groupId}`
+          `http://localhost:3001/api/groups/group/${groupId}`
         );
         setGroup(response.data || null);
       } catch (error) {
@@ -34,7 +34,7 @@ const ChatScreen = () => {
 
     try {
       await axios.post(
-        `http://localhost:3001/api/groups/${groupId}/messages`,
+        `http://localhost:3001/api/messages/${groupId}`,
         {
           text: newMessage,
         },
@@ -57,7 +57,7 @@ const ChatScreen = () => {
       ?.split("=")[1];
     try {
       const response = await axios.get(
-        `http://localhost:3001/api/groups/${groupId}/messages`,
+        `http://localhost:3001/api/messages/${groupId}`,
         {
           headers: {
             "x-auth-token": token,
@@ -69,8 +69,6 @@ const ChatScreen = () => {
       console.error(error);
     }
   };
-
-  console.log(messages);
 
   useEffect(() => {
     fetchMessages();
