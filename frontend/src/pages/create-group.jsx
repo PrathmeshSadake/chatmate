@@ -16,7 +16,7 @@ const CreateGroup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/groups",
+        `${import.meta.env.VITE_BACKEND_URL}/api/groups`,
         {
           name: groupName,
         },

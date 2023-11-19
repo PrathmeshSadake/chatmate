@@ -11,7 +11,7 @@ const UserGroups = () => {
     const fetchGroups = async () => {
       try {
         const { data } = await axios.get(
-          `http://localhost:3001/api/groups/${user.userId}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/groups/${user.userId}`
         );
         console.log("User Groups", data);
         setGroups(data);

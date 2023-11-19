@@ -30,7 +30,7 @@ const SignUp = () => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3001/api/auth/signup",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`,
         formData
       );
 

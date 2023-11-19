@@ -16,7 +16,7 @@ const JoinGroupByName = () => {
       ?.split("=")[1];
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/groups/join-group-by-name",
+        `${import.meta.env.VITE_BACKEND_URL}/api/groups/join-group-by-name`,
         {
           groupName,
         },

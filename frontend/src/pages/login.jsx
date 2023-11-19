@@ -24,7 +24,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/api/auth/login",
+        `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
         formData
       );
 
@@ -85,7 +85,7 @@ const Login = () => {
         </form>
         <p className='text-gray-800 text-sm my-1 text-center'>
           Don&apos;t have an Account?{" "}
-          <Link to='/login' className='text-indigo-700'>
+          <Link to='/sign-up' className='text-indigo-700'>
             Create an account
           </Link>
         </p>
